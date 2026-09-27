@@ -1,0 +1,1702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Feedback Portal</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- =====================================================
+     STUDENT LOGIN
+===================================================== -->
+
+<section id="loginPage" class="page active">
+
+    <div class="login-box">
+
+        <h1>Student Feedback Portal</h1>
+
+        <p class="subtitle">
+            Login to submit your faculty feedback
+        </p>
+
+        <form id="loginForm">
+
+            <label for="studentId">
+                Student ID
+            </label>
+
+            <input
+                type="text"
+                id="studentId"
+                placeholder="Enter Student ID"
+                required
+            >
+
+
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter Password"
+                required
+            >
+
+
+            <button type="submit">
+                Student Login
+            </button>
+
+            <p id="loginMessage" class="message"></p>
+
+        </form>
+
+
+        <button
+            id="showAdminLogin"
+            class="admin-link"
+            type="button"
+        >
+            Admin Login
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     STUDENT DASHBOARD
+===================================================== -->
+
+<section id="studentPage" class="page">
+
+    <nav class="navbar">
+
+        <h2>
+            Student Feedback Portal
+        </h2>
+
+
+        <div class="nav-right">
+
+            <span>
+                Welcome,
+                <strong id="studentName"></strong>
+            </span>
+
+            <button
+                id="studentLogout"
+                type="button"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </nav>
+
+
+    <div class="container">
+
+        <div class="page-heading">
+
+            <h1>
+                Faculty Feedback
+            </h1>
+
+            <p>
+                Your feedback helps improve teaching and learning.
+                Your identity will remain private from faculty members.
+            </p>
+
+        </div>
+
+
+        <!-- FACULTY LIST -->
+
+        <div
+            id="facultyContainer"
+            class="faculty-grid"
+        ></div>
+
+
+
+        <!-- MY FEEDBACK -->
+
+        <div class="my-feedback-section">
+
+            <h2>
+                My Submitted Feedback
+            </h2>
+
+            <p class="section-note">
+                You can view only the feedback submitted by you.
+            </p>
+
+            <div id="myFeedbackContainer"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FEEDBACK MODAL
+===================================================== -->
+
+<div id="feedbackModal" class="modal">
+
+    <div class="modal-content">
+
+        <button
+            id="closeModal"
+            class="close-btn"
+            type="button"
+        >
+            &times;
+        </button>
+
+
+        <h2 id="feedbackFacultyName">
+            Faculty Feedback
+        </h2>
+
+
+        <div class="anonymous-note">
+
+            🔒
+            <strong>Anonymous Feedback</strong>
+
+            <br>
+
+            Your name and Student ID will not be shown
+            to faculty members.
+
+        </div>
+
+
+        <form id="feedbackForm">
+
+            <input
+                type="hidden"
+                id="selectedFacultyId"
+            >
+
+
+            <!-- =========================================
+                 RATING
+            ========================================== -->
+
+            <div class="form-section">
+
+                <h3>
+                    ⭐ Overall Teaching Rating
+                </h3>
+
+                <p class="question-help">
+                    Choose the rating that best describes
+                    your overall experience.
+                </p>
+
+
+                <div class="rating-options">
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="rating"
+                            value="1"
+                            required
+                        >
+
+                        <span>⭐</span>
+
+                        <strong>1</strong>
+
+                        <small>
+                            Very Poor
+                        </small>
+
+                    </label>
+
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="rating"
+                            value="2"
+                        >
+
+                        <span>⭐⭐</span>
+
+                        <strong>2</strong>
+
+                        <small>
+                            Poor
+                        </small>
+
+                    </label>
+
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="rating"
+                            value="3"
+                        >
+
+                        <span>⭐⭐⭐</span>
+
+                        <strong>3</strong>
+
+                        <small>
+                            Average
+                        </small>
+
+                    </label>
+
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="rating"
+                            value="4"
+                        >
+
+                        <span>⭐⭐⭐⭐</span>
+
+                        <strong>4</strong>
+
+                        <small>
+                            Good
+                        </small>
+
+                    </label>
+
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="rating"
+                            value="5"
+                        >
+
+                        <span>⭐⭐⭐⭐⭐</span>
+
+                        <strong>5</strong>
+
+                        <small>
+                            Excellent
+                        </small>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 TEACHING
+            ========================================== -->
+
+            <div class="form-section">
+
+                <h3>
+                    📚 How was the teaching?
+                </h3>
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="teaching"
+                        value="Clear and easy to understand"
+                        required
+                    >
+
+                    Clear and easy to understand
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="teaching"
+                        value="Mostly clear"
+                    >
+
+                    Mostly clear
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="teaching"
+                        value="Sometimes difficult to understand"
+                    >
+
+                    Sometimes difficult to understand
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="teaching"
+                        value="Too fast"
+                    >
+
+                    Too fast
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="teaching"
+                        value="Too slow"
+                    >
+
+                    Too slow
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="teaching"
+                        value="Needs better explanation"
+                    >
+
+                    Needs better explanation
+
+                </label>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 WHAT STUDENT LIKED
+            ========================================== -->
+
+            <div class="form-section">
+
+                <h3>
+                    🧑‍🏫 What did you like about the faculty?
+                </h3>
+
+                <p class="question-help">
+                    You can select more than one.
+                </p>
+
+
+                <label class="choice">
+
+                    <input
+                        type="checkbox"
+                        name="liked"
+                        value="Good subject knowledge"
+                    >
+
+                    Good subject knowledge
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="checkbox"
+                        name="liked"
+                        value="Explains concepts clearly"
+                    >
+
+                    Explains concepts clearly
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="checkbox"
+                        name="liked"
+                        value="Gives practical examples"
+                    >
+
+                    Gives practical examples
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="checkbox"
+                        name="liked"
+                        value="Clears doubts properly"
+                    >
+
+                    Clears doubts properly
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="checkbox"
+                        name="liked"
+                        value="Friendly with students"
+                    >
+
+                    Friendly with students
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="checkbox"
+                        name="liked"
+                        value="Encourages students"
+                    >
+
+                    Encourages students to ask questions
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="checkbox"
+                        name="liked"
+                        value="Uses visual aids"
+                    >
+
+                    Uses useful presentations / visual aids
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="checkbox"
+                        name="liked"
+                        value="Provides study materials"
+                    >
+
+                    Provides useful study materials
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="checkbox"
+                        name="liked"
+                        value="Interactive classes"
+                    >
+
+                    Conducts interactive classes
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="checkbox"
+                        name="liked"
+                        value="Good classroom discipline"
+                    >
+
+                    Maintains good classroom discipline
+
+                </label>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 IMPROVEMENT
+            ========================================== -->
+
+            <div class="form-section">
+
+                <h3>
+                    🔧 What should the faculty improve?
+                </h3>
+
+                <p class="question-help">
+                    You can select more than one.
+                </p>
+
+
+                <label class="choice">
+
+                    <input
+                        type="checkbox"
+                        name="improvement"
+                        value="Explanation clarity"
+                    >
+
+                    Explain concepts more clearly
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="checkbox"
+                        name="improvement"
+                        value="More practical examples"
+                    >
+
+                    Give more practical examples
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="checkbox"
+                        name="improvement"
+                        value="Teaching speed"
+                    >
+
+                    Improve teaching speed
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="checkbox"
+                        name="improvement"
+                        value="Difficult topics"
+                    >
+
+                    Spend more time on difficult topics
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="checkbox"
+                        name="improvement"
+                        value="Student interaction"
+                    >
+
+                    Improve interaction with students
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="checkbox"
+                        name="improvement"
+                        value="Doubt clarification"
+                    >
+
+                    Give more time for doubt clarification
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="checkbox"
+                        name="improvement"
+                        value="Visual aids"
+                    >
+
+                    Use more presentations / visual aids
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="checkbox"
+                        name="improvement"
+                        value="Study materials"
+                    >
+
+                    Provide better study materials
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="checkbox"
+                        name="improvement"
+                        value="More practice"
+                    >
+
+                    Give more exercises / practice
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="checkbox"
+                        name="improvement"
+                        value="Time management"
+                    >
+
+                    Improve time management
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="checkbox"
+                        name="improvement"
+                        value="Revision"
+                    >
+
+                    Conduct more revision sessions
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="checkbox"
+                        name="improvement"
+                        value="No improvement needed"
+                    >
+
+                    No improvement needed
+
+                </label>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 DIFFICULT TOPICS
+            ========================================== -->
+
+            <div class="form-section">
+
+                <h3>
+                    📖 How well are difficult topics explained?
+                </h3>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="difficultTopics"
+                        value="Very easy to understand"
+                        required
+                    >
+
+                    Very easy to understand
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="difficultTopics"
+                        value="Easy to understand"
+                    >
+
+                    Easy to understand
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="difficultTopics"
+                        value="Understandable with some effort"
+                    >
+
+                    Understandable with some effort
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="difficultTopics"
+                        value="Difficult to understand"
+                    >
+
+                    Difficult to understand
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="difficultTopics"
+                        value="Very difficult to understand"
+                    >
+
+                    Very difficult to understand
+
+                </label>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 DOUBTS
+            ========================================== -->
+
+            <div class="form-section">
+
+                <h3>
+                    💬 How well does the faculty clear doubts?
+                </h3>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="doubts"
+                        value="Always clears doubts clearly"
+                        required
+                    >
+
+                    Always clears doubts clearly
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="doubts"
+                        value="Usually clears doubts"
+                    >
+
+                    Usually clears doubts
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="doubts"
+                        value="Sometimes clears doubts"
+                    >
+
+                    Sometimes clears doubts
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="doubts"
+                        value="Needs more time for doubts"
+                    >
+
+                    Needs to spend more time on doubts
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="doubts"
+                        value="Not enough clarification"
+                    >
+
+                    Does not provide enough clarification
+
+                </label>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 INTERACTION
+            ========================================== -->
+
+            <div class="form-section">
+
+                <h3>
+                    🎯 How engaging are the classes?
+                </h3>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="interaction"
+                        value="Very interactive"
+                        required
+                    >
+
+                    Very interactive
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="interaction"
+                        value="Interactive"
+                    >
+
+                    Interactive
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="interaction"
+                        value="Sometimes interactive"
+                    >
+
+                    Sometimes interactive
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="interaction"
+                        value="Mostly lecture based"
+                    >
+
+                    Mostly lecture-based
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="interaction"
+                        value="Not interactive"
+                    >
+
+                    Not interactive
+
+                </label>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 STUDY MATERIALS
+            ========================================== -->
+
+            <div class="form-section">
+
+                <h3>
+                    📚 How useful are the study materials?
+                </h3>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="materials"
+                        value="Very useful"
+                        required
+                    >
+
+                    Very useful
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="materials"
+                        value="Useful"
+                    >
+
+                    Useful
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="materials"
+                        value="Somewhat useful"
+                    >
+
+                    Somewhat useful
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="materials"
+                        value="Need more materials"
+                    >
+
+                    Need more materials
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="materials"
+                        value="Materials need improvement"
+                    >
+
+                    Materials need improvement
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="materials"
+                        value="No study materials"
+                    >
+
+                    No study materials provided
+
+                </label>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 PRACTICAL LEARNING
+            ========================================== -->
+
+            <div class="form-section">
+
+                <h3>
+                    💡 How is the practical learning?
+                </h3>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="practical"
+                        value="Excellent practical examples"
+                        required
+                    >
+
+                    Excellent practical examples
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="practical"
+                        value="Good practical examples"
+                    >
+
+                    Good practical examples
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="practical"
+                        value="Some practical examples"
+                    >
+
+                    Some practical examples
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="practical"
+                        value="Need more practical sessions"
+                    >
+
+                    Need more practical sessions
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="practical"
+                        value="Mostly theoretical"
+                    >
+
+                    Mostly theoretical
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="practical"
+                        value="No practical activities"
+                    >
+
+                    No practical activities
+
+                </label>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 TIME MANAGEMENT
+            ========================================== -->
+
+            <div class="form-section">
+
+                <h3>
+                    ⏰ How is the time management?
+                </h3>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="timeManagement"
+                        value="Excellent"
+                        required
+                    >
+
+                    Excellent
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="timeManagement"
+                        value="Good"
+                    >
+
+                    Good
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="timeManagement"
+                        value="Satisfactory"
+                    >
+
+                    Satisfactory
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="timeManagement"
+                        value="Sometimes rushed"
+                    >
+
+                    Sometimes rushed
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="timeManagement"
+                        value="Too much time spent"
+                    >
+
+                    Too much time spent on some topics
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="timeManagement"
+                        value="Needs improvement"
+                    >
+
+                    Needs improvement
+
+                </label>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 COMMUNICATION
+            ========================================== -->
+
+            <div class="form-section">
+
+                <h3>
+                    🗣️ How is the faculty's communication?
+                </h3>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="communication"
+                        value="Very clear"
+                        required
+                    >
+
+                    Very clear
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="communication"
+                        value="Clear"
+                    >
+
+                    Clear
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="communication"
+                        value="Mostly clear"
+                    >
+
+                    Mostly clear
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="communication"
+                        value="Sometimes unclear"
+                    >
+
+                    Sometimes unclear
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="communication"
+                        value="Difficult to understand"
+                    >
+
+                    Difficult to understand
+
+                </label>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 OVERALL
+            ========================================== -->
+
+            <div class="form-section">
+
+                <h3>
+                    ❤️ Overall Faculty Experience
+                </h3>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="overall"
+                        value="Excellent"
+                        required
+                    >
+
+                    Excellent
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="overall"
+                        value="Very Good"
+                    >
+
+                    Very Good
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="overall"
+                        value="Good"
+                    >
+
+                    Good
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="overall"
+                        value="Satisfactory"
+                    >
+
+                    Satisfactory
+
+                </label>
+
+
+                <label class="choice">
+
+                    <input
+                        type="radio"
+                        name="overall"
+                        value="Needs Improvement"
+                    >
+
+                    Needs Improvement
+
+                </label>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 COMMENT
+            ========================================== -->
+
+            <div class="form-section">
+
+                <h3>
+                    ✍️ Additional Feedback
+                </h3>
+
+                <p class="question-help">
+                    This is optional.
+                </p>
+
+
+                <textarea
+                    id="comment"
+                    rows="5"
+                    placeholder="Write your suggestion, appreciation, or improvement idea here..."
+                ></textarea>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="submit-feedback"
+            >
+                Submit Feedback
+            </button>
+
+
+            <p
+                id="feedbackMessage"
+                class="message"
+            ></p>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     ADMIN LOGIN
+===================================================== -->
+
+<section id="adminLoginPage" class="page">
+
+    <div class="login-box">
+
+        <h1>
+            Admin Login
+        </h1>
+
+        <p class="subtitle">
+            Authorized admin access
+        </p>
+
+
+        <form id="adminLoginForm">
+
+            <label for="adminUsername">
+                Username
+            </label>
+
+            <input
+                type="text"
+                id="adminUsername"
+                placeholder="Enter username"
+                required
+            >
+
+
+            <label for="adminPassword">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="adminPassword"
+                placeholder="Enter password"
+                required
+            >
+
+
+            <button type="submit">
+                Admin Login
+            </button>
+
+
+            <p
+                id="adminLoginMessage"
+                class="message"
+            ></p>
+
+        </form>
+
+
+        <button
+            id="backToStudent"
+            class="admin-link"
+            type="button"
+        >
+            Back to Student Login
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     ADMIN DASHBOARD
+===================================================== -->
+
+<section id="adminPage" class="page">
+
+    <nav class="navbar">
+
+        <h2>
+            Admin Dashboard
+        </h2>
+
+
+        <button
+            id="adminLogout"
+            type="button"
+        >
+            Logout
+        </button>
+
+    </nav>
+
+
+    <div class="container">
+
+        <div class="page-heading">
+
+            <h1>
+                Feedback Management
+            </h1>
+
+            <p>
+                Admin can view complete feedback details,
+                including student identity.
+            </p>
+
+        </div>
+
+
+        <!-- STATISTICS -->
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+
+                <h3>
+                    Total Students
+                </h3>
+
+                <strong id="totalStudents">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <h3>
+                    Total Faculty
+                </h3>
+
+                <strong id="totalFaculty">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <h3>
+                    Total Feedback
+                </h3>
+
+                <strong id="totalFeedback">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <h3>
+                    Average Rating
+                </h3>
+
+                <strong id="averageRating">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FEEDBACK TABLE -->
+
+        <div class="admin-table-box">
+
+            <h2>
+                All Feedback
+            </h2>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Student
+                            </th>
+
+                            <th>
+                                Faculty
+                            </th>
+
+                            <th>
+                                Rating
+                            </th>
+
+                            <th>
+                                Teaching
+                            </th>
+
+                            <th>
+                                Improvement
+                            </th>
+
+                            <th>
+                                Comment
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="feedbackTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <button
+                id="clearFeedback"
+                class="danger-btn"
+                type="button"
+            >
+                Clear All Feedback
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
